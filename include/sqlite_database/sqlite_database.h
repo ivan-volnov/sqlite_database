@@ -138,6 +138,8 @@ public:
     ~SqliteDatabase();
 
     static std::shared_ptr<SqliteDatabase> open(const std::string &filename) MAYTHROW;
+    static std::shared_ptr<SqliteDatabase> open_read_only(const std::string &filename) MAYTHROW;
+    static std::shared_ptr<SqliteDatabase> open_in_memory() MAYTHROW;
 
     void exec(const char *sql) MAYTHROW;
     Query create_query();

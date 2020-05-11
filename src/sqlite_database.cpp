@@ -363,6 +363,24 @@ std::shared_ptr<SqliteDatabase> SqliteDatabase::open(const std::string &filename
     return std::make_shared<SqliteDatabase>(db);
 }
 
+std::shared_ptr<SqliteDatabase> SqliteDatabase::open_read_only(const std::string &filename) MAYTHROW
+{
+    sqlite3 *db;
+    if (sqlite3_open_v2(filename.c_str(), &db, SQLITE_OPEN_READONLY, nullptr) != SQLITE_OK) {
+        throw DatabaseException(db);
+    }
+    return std::make_shared<SqliteDatabase>(db);
+}
+
+std::shared_ptr<SqliteDatabase> SqliteDatabase::open_in_memory() MAYTHROW
+{
+    sqlite3 *db;
+    if (sqlite3_open(":memory:", &db) != SQLITE_OK) {
+        throw DatabaseException(db);
+    }
+    return std::make_shared<SqliteDatabase>(db);
+}
+
 
 
 void SqliteDatabase::exec(const char *sql) MAYTHROW
