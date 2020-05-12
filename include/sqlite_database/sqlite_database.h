@@ -82,12 +82,14 @@ public:
         for (; begin != end; ++begin) {
             bind(*begin);
         }
+        return *this;
     }
 
     template<typename Container>
     Query &bind(const Container &container)
     {
         bind(container.begin(), container.end());
+        return *this;
     }
 
     bool step() MAYTHROW;
