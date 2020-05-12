@@ -76,6 +76,20 @@ public:
     Query &bind(uint64_t value) MAYTHROW;
     Query &bind() MAYTHROW;
 
+    template<typename Iterator>
+    Query &bind(Iterator begin, Iterator end)
+    {
+        for (; begin != end; ++begin) {
+            bind(*begin);
+        }
+    }
+
+    template<typename Container>
+    Query &bind(const Container &container)
+    {
+        bind(container.begin(), container.end());
+    }
+
     bool step() MAYTHROW;
     static Query &step(Query &query) MAYTHROW;
 
