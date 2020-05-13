@@ -9,7 +9,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 
 add_subdirectory(libs/sqlite3)
 include_directories(./)
-include_directories(include)
 
 add_library(${PROJECT_NAME} STATIC
     include/sqlite_database/sqlite_database.h
@@ -19,3 +18,5 @@ add_library(${PROJECT_NAME} STATIC
 target_link_libraries(${PROJECT_NAME}
     sqlite3_amalgamation
 )
+
+target_include_directories(${PROJECT_NAME} PUBLIC include)
